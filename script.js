@@ -227,21 +227,29 @@ async function sendMessage(text) {
   const typingEl = appendTyping();
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    // Build messages array with system prompt injected as first user/assistant exchange
+    const messages = [
+      { role: 'user', content: SYSTEM_PROMPT + '\n\nAcknowledge your role briefly.' },
+      { role: 'assistant', content: 'Understood! I\'m Francis\'s portfolio assistant, ready to answer questions about his skills, projects, and experience.' },
+      ...conversationHistory
+    ];
+
+    const response = await fetch('https://text.pollinations.ai/openai', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'openai',
+        messages,
         max_tokens: 400,
-        system: SYSTEM_PROMPT,
-        messages: conversationHistory
+        temperature: 0.7
       })
     });
 
     if (!response.ok) throw new Error(`API error ${response.status}`);
 
     const data = await response.json();
-    const reply = data.content?.map(b => b.text || '').join('') || 'Sorry, I couldn\'t get a response.';
+    const reply = data.choices?.[0]?.message?.content?.trim()
+      || 'Sorry, I couldn\'t get a response right now.';
 
     typingEl.remove();
     appendMessage('bot', reply);
