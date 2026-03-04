@@ -1,248 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Francis Mujakachi — Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <header class="header">
-        <a href="#home" class="logo">Francis<span>Mujakachi</span></a>
-        <i class='bx bx-menu' id="menu-icon"></i>
-        <nav class="navbar">
-            <a href="#home" class="active">Home</a>
-            <a href="#education">Education</a>
-            <a href="#services">Services</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
 
-<!-- Home Section -->
-<section class="Home" id="home">
-    <div class="home-content">
-        <h1>Hi, It's <span>Francis</span></h1>
-        <h3 class="text-animation">I'm a <span></span></h3>
-        <p>Web Developer and a Software Engineer.</p>
+  <!-- ══ NOISE OVERLAY ══ -->
+  <div class="noise"></div>
 
-        <div class="social-icons">
-            <a href="https://linkedin.com/"><i class='bx bxl-linkedin'></i></a>
-            <a href="#"><i class='bx bxl-github'></i></a>
-            <a href="https://facebook.com/fmujakachi/"><i class="bx bxl-facebook"></i></a>
-            <a href="https://instagram.com/"><i class="bx bxl-instagram"></i></a>
-        </div>
+  <!-- ══ CURSOR ══ -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
 
-        <div class="btn-group">
-            <a href="#footer" class="btn">Hire</a>
-            <a href="#contact" class="btn">Contact</a>
-        </div>
+  <!-- ══ HEADER ══ -->
+  <header class="header" id="header">
+    <a href="#home" class="logo">Francis<span>Mujakachi</span></a>
+    <i class="bx bx-menu" id="menu-icon"></i>
+    <nav class="navbar">
+      <a href="#home" class="active">Home</a>
+      <a href="#education">Education</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ══ HOME ══ -->
+  <section class="home" id="home">
+    <div class="parallax-bg"></div>
+    <div class="home-content" data-aos="fade-right">
+      <div class="eyebrow">Available for work</div>
+      <h1>Hi, I'm <span>Francis</span></h1>
+      <h3 class="text-animation">I'm a <span></span></h3>
+      <p>Web Developer &amp; Software Engineer crafting clean, performant digital experiences.</p>
+      <div class="social-icons">
+        <a href="https://linkedin.com/" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="bx bxl-linkedin"></i></a>
+        <a href="https://github.com/FraMukachi/" aria-label="GitHub" target="_blank" rel="noopener"><i class="bx bxl-github"></i></a>
+        <a href="https://facebook.com/fmujakachi/" aria-label="Facebook" target="_blank" rel="noopener"><i class="bx bxl-facebook"></i></a>
+        <a href="https://instagram.com/" aria-label="Instagram" target="_blank" rel="noopener"><i class="bx bxl-instagram"></i></a>
+      </div>
+      <div class="btn-group">
+        <a href="#contact" class="btn btn-primary">Hire Me</a>
+        <a href="#contact" class="btn btn-outline">Contact</a>
+      </div>
     </div>
-            <div class="home-img">
-                <img src="./img/1.jpg" alt=""></div>
-        </div>
-     </section>
+    <div class="home-img" data-aos="fade-left">
+      <div class="img-ring"></div>
+      <img src="./img/1.jpg" alt="Francis Mujakachi — Profile Photo" />
+    </div>
+  </section>
 
-    <!-- Education Section -->
-    <section class="education" id="education">
-        <h2 class="heading">Education</h2>
-        <div class="timeline-items">
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-date">2008</div>
-            <div class="timeline-content">
-                <h3>High School</h3>
-                <p>Mid-Manhattan Education Center</p>
-            </div>
-        </div>
-      <div class="timeline-item">
+  <!-- ══ EDUCATION ══ -->
+  <section class="education" id="education">
+    <div class="section-label">My Journey</div>
+    <h2 class="heading">Education</h2>
+    <div class="timeline-items">
+      <div class="timeline-item" data-aos="fade-right">
         <div class="timeline-dot"></div>
-            <div class="timeline-date">2015
-                <div class="timeline-content">
-                   <h3>University</h3>
-                   <p>Katolicki Uniwersitet Lubelski</p>    
-            </div>
+        <div class="timeline-date">2008</div>
+        <div class="timeline-content">
+          <h3>High School</h3>
+          <p>Mid-Manhattan Education Center</p>
         </div>
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-date">2025</div>
-                <div class="timeline-content">
-                    <h3>FullStack Software Development</h3>
-                    <p>Power Learn Project</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-date">2025</div>
-                    <div class="timeline-content">
-                    <h3>Cybersecurity Certificate</h3>
-                    <p>Coursera and Nemisa</p>
-                </div>
-            </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <h2 class="heading">Services</h2>
-        <div class="services-container">
-            <div class="service-box">
-                <div class="service-info">
-                    <h4>UI Design</h4>
-                    <ul>
-                        <li>Crafting Intuitive and Visually Stunning Interfaces</li>
-                        <li>I specialize in creating user interfaces that are not only visually appealing but also highly functional and user-friendly.</li>
-                    </ul>
-
-                    <br><br>
-
-                    <h3>Why Choose Me?</h3>
-
-                    <br><br>
-
-                    <ul>
-                        <li>Human-centered design approach for seamless user experiences.</li>
-                        <li> Expertise in modern design trends, animations, and micro-interactions. </li>
-                    </ul>
-                </div>
-             </div>
-             <div class="service-box">
-                <div class="service-info">
-                    <h4>Frontend Development</h4>
-                    <ul>
-                        <li>Building Responsive and Interactive Web Experiences</li>
-                        <li>I transform designs into fully functional, responsive, and interactive websites and applications.</li>
-                    </ul>
-                    
-                   <br><br>
-
-                   <h3>Why Choose Me?</h3>
-                   <br><br>
-                   <ul>
-                        <li>Pixel-perfect implementation of UI designs.</li>
-                        <li>Expertise in creating dynamic, single-page applications (SPAs).</li>
-                        <li>Focus on performance optimization and cross-browser compatibility.</li>
-                   </ul>
-                </div>
-             </div>
-             <div class="service-box">
-                <div class="service-info">
-                    <h4>Backend Development</h4>
-                    <ul>
-                        <li>Powering Your Platform with Robust and Scalable Solutions</li>
-                        <li>I develop secure, scalable, and efficient server-side solutions using technologies, I ensure your application runs smoothly, handles high traffic, and scales with your business needs.</li>
-                    </ul>
-
-                    <br><br>
-
-                    <h3>Why Choose Me? </h3>
-
-                    <br><br>
-
-                    <ul>
-                        <li>Expertise in building secure and high-performance APIs.</li>
-                        <li>Experience with cloud platforms like AWS, Azure, and Google Cloud.</li>
-                        <li>Focus on clean, modular, and maintainable backend code</li>
-                    </ul>
-                </div>
-             </div>
-             <div class="service-box">
-                <div class="service-info">
-                    <h4>Testing</h4>
-                    <ul>
-                        <li>Ensuring Flawless Performance and Reliability</li>
-                        <li>My testing services include unit testing, integration testing, and end-to-end testing to identify and fix bugs before they reach your users.</li>
-                    </ul>
-
-                    <br><br>
-
-                    <h3>Why Choose Me?</h3>
-
-                    <br><br>
-
-                    <ul>
-                        <li>Comprehensive testing strategies to catch bugs early.</li>
-                        <li>Expertise in automated testing for faster and more reliable results.</li>
-                        <li>Focus on delivering a polished, bug-free product.></li>
-
-                    </ul>
-                </div>
-             </div>
+      </div>
+      <div class="timeline-item" data-aos="fade-left">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2015</div>
+        <div class="timeline-content">
+          <h3>University</h3>
+          <p>Katolicki Uniwersytet Lubelski</p>
         </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section class="portfolio" id="portfolio">
-        <h2 class="heading">Portfolio</h2>
-        <div class="portfolio-container">
-            <div class="portfolio-box">
-                <img src="img/2.jpg" alt="Project 1">
-                </a>
-                <div class="portfolio-layer">
-                    <h4>E-commerce</h4>
-                    <p>Single vendor Shop selling Urban wear, designed using HTML, CSS and JAVASCRIPT. Made as a final project for my Web Development class.</p>
-                    <a href="https://plp-webtechnologies.github.io/feb-2025-final-project-and-deployment-FraMukachi/index.html" target="_blank"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
-            <div class="portfolio-box">
-                <img src="img/3.jpg" alt="Project 2">
-                <div class="portfolio-layer">
-                    <h4>Project 2</h4>
-                    <p>First portfolio page that i made.</p>
-                    <a href="https://francismujakachi.github.io/portfolio/" target="_blank"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
+      </div>
+      <div class="timeline-item" data-aos="fade-right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2025</div>
+        <div class="timeline-content">
+          <h3>FullStack Software Development</h3>
+          <p>Power Learn Project</p>
         </div>
-    </section>
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <h2 class="heading">Contact <span>Me</span></h2>
-        <form action="#" method="POST">
-            <div class="input-group">
-                <div class="input-box">
-                    <input type="text" id="full-name" name="full-name" placeholder="Full Name" required>
-                    <input type="email" id="email" name="email" placeholder="Email" required>
-                </div>
-                <div class="input-box">
-                    <input type="tel" id="phone" name="phone" placeholder="Phone Number">
-                    <input type="text" id="subject" name="subject" placeholder="Subject" required>
-                </div>
-            </div>
-            <div class="input-box">
-                <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn">Send Message</button>
-        </form>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="social">
-            <a href="https://linkedin.com/"><i class='bx bxl-linkedin'></i></a>
-            <a href="https://github.com/FraMukachi/"><i class='bx bxl-github'></i></a>
-            <a href="https://facebook.com/fmujakachi/"><i class="bx bxl-facebook"></i></a>
-            <a href="https://instagram.com/"><i class="bx bxl-instagram"></i></a>
+      </div>
+      <div class="timeline-item" data-aos="fade-left">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2025</div>
+        <div class="timeline-content">
+          <h3>Cybersecurity Certificate</h3>
+          <p>Coursera &amp; Nemisa</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SERVICES ══ -->
+  <section class="services" id="services">
+    <div class="section-label">What I Do</div>
+    <h2 class="heading">Services</h2>
+    <div class="services-container">
+
+      <div class="service-box" data-aos="fade-up" data-aos-delay="0">
+        <div class="service-icon"><i class="bx bx-palette"></i></div>
+        <h4>UI Design</h4>
+        <p>Crafting intuitive and visually stunning interfaces with a human-centered design approach, modern animations, and seamless micro-interactions.</p>
+        <div class="service-tag">Figma · Prototyping · UX</div>
+      </div>
+
+      <div class="service-box" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-icon"><i class="bx bx-code-alt"></i></div>
+        <h4>Frontend Dev</h4>
+        <p>Pixel-perfect, responsive web applications. Expertise in dynamic SPAs, performance optimization, and cross-browser compatibility.</p>
+        <div class="service-tag">React · HTML · CSS · JS</div>
+      </div>
+
+      <div class="service-box" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-icon"><i class="bx bx-server"></i></div>
+        <h4>Backend Dev</h4>
+        <p>Secure, scalable server-side solutions and high-performance APIs. Experience with AWS, Azure, and Google Cloud platforms.</p>
+        <div class="service-tag">Node · Python · SQL · Cloud</div>
+      </div>
+
+      <div class="service-box" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-icon"><i class="bx bx-bug"></i></div>
+        <h4>Testing</h4>
+        <p>Comprehensive unit, integration, and end-to-end testing strategies. Automated pipelines for faster, more reliable product delivery.</p>
+        <div class="service-tag">Jest · Cypress · QA</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ PORTFOLIO ══ -->
+  <section class="portfolio" id="portfolio">
+    <div class="section-label">My Work</div>
+    <h2 class="heading">Portfolio</h2>
+    <div class="portfolio-container">
+
+      <div class="portfolio-box" data-aos="fade-up">
+        <img src="img/2.jpg" alt="E-commerce project screenshot" loading="lazy" />
+        <div class="portfolio-layer">
+          <div class="portfolio-meta">
+            <span>Web Dev</span><span>2025</span>
+          </div>
+          <h4>E-Commerce Store</h4>
+          <p>Urban wear single-vendor shop built with HTML, CSS &amp; JavaScript. Final project for Web Development class.</p>
+          <a href="https://plp-webtechnologies.github.io/feb-2025-final-project-and-deployment-FraMukachi/index.html"
+             target="_blank" rel="noopener" aria-label="View E-commerce project">
+            <i class="bx bx-link-external"></i> View Project
+          </a>
+        </div>
+      </div>
+
+      <div class="portfolio-box" data-aos="fade-up" data-aos-delay="100">
+        <img src="img/3.jpg" alt="First portfolio screenshot" loading="lazy" />
+        <div class="portfolio-layer">
+          <div class="portfolio-meta">
+            <span>Portfolio</span><span>2024</span>
+          </div>
+          <h4>Portfolio V1</h4>
+          <p>My first personal portfolio — the starting point of my web development journey.</p>
+          <a href="https://francismujakachi.github.io/portfolio/"
+             target="_blank" rel="noopener" aria-label="View Portfolio V1">
+            <i class="bx bx-link-external"></i> View Project
+          </a>
+        </div>
+      </div>
+
+      <div class="portfolio-box" data-aos="fade-up" data-aos-delay="200">
+        <div class="portfolio-placeholder career-ai-card">
+          <div class="career-ai-icon"><i class="bx bx-brain"></i></div>
+          <div class="career-ai-badge">AI-Powered</div>
+        </div>
+        <div class="portfolio-layer">
+          <div class="portfolio-meta">
+            <span>AI / Career Tech</span><span>2025</span>
+          </div>
+          <h4>Career AI</h4>
+          <p>An intelligent career guidance platform using AI to help users navigate career decisions, resume building, and job matching.</p>
+          <a href="#" target="_blank" rel="noopener" aria-label="View Career AI project">
+            <i class="bx bx-link-external"></i> View Project
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ CONTACT ══ -->
+  <section class="contact" id="contact">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="heading">Contact <span>Me</span></h2>
+    <form id="contact-form" novalidate>
+      <div class="input-group">
+        <div class="input-box">
+          <input type="text" id="full-name" name="full-name" placeholder="Full Name" required autocomplete="name" />
+          <input type="email" id="email" name="email" placeholder="Email Address" required autocomplete="email" />
+        </div>
+        <div class="input-box">
+          <input type="tel" id="phone" name="phone" placeholder="Phone Number" autocomplete="tel" />
+          <input type="text" id="subject" name="subject" placeholder="Subject" required />
+        </div>
+      </div>
+      <div class="input-box full-width">
+        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Send Message <i class="bx bx-send"></i></button>
+      <div class="form-status" id="form-status"></div>
+    </form>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer" id="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#home" class="logo">Francis<span>Mujakachi</span></a>
+        <p>Building digital experiences that matter.</p>
+      </div>
+      <div class="footer-links">
         <ul class="list">
-            <li>
-                <a href="">FAQ</a>
-            </li>
-            <li>
-                <a href="#services">Services</a>
-            </li>
-            <li>
-                <a href="#about">About Me</a>
-            </li>
-            <li>
-                <a href="#contact">Contact</a>
-            </li>
-            <li>
-                <a href="#portfolio">Portfolio</a>
-            </li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
-        <p class="copyright" id="copyright">
-            &copy; Francis Mujakachi  |  All Rights Reserved  |  +27648584297  |  fmujakachi@gmail.com
-        </p>
-    </footer>
+      </div>
+      <div class="footer-social">
+        <div class="social">
+          <a href="https://linkedin.com/" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/FraMukachi/" aria-label="GitHub" target="_blank" rel="noopener"><i class="bx bxl-github"></i></a>
+          <a href="https://facebook.com/fmujakachi/" aria-label="Facebook" target="_blank" rel="noopener"><i class="bx bxl-facebook"></i></a>
+          <a href="https://instagram.com/" aria-label="Instagram" target="_blank" rel="noopener"><i class="bx bxl-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copyright">&copy; <span id="year"></span> Francis Mujakachi &nbsp;|&nbsp; All Rights Reserved &nbsp;|&nbsp; <a href="tel:+27648584297">+27 64 858 4297</a> &nbsp;|&nbsp; <a href="mailto:fmujakachi@gmail.com">fmujakachi@gmail.com</a></p>
+    </div>
+  </footer>
+
+  <!-- ══ AI CHAT WIDGET ══ -->
+  <button class="ai-toggle" id="ai-toggle" aria-label="Ask AI about Francis">
+    <i class="bx bx-bot"></i>
+    <span class="ai-pulse"></span>
+  </button>
+
+  <div class="ai-chat" id="ai-chat" role="dialog" aria-label="Ask Francis's AI Assistant">
+    <div class="ai-header">
+      <div class="ai-header-info">
+        <div class="ai-avatar"><i class="bx bx-bot"></i></div>
+        <div>
+          <strong>Ask About Francis</strong>
+          <small>AI Assistant • Free</small>
+        </div>
+      </div>
+      <button class="ai-close" id="ai-close" aria-label="Close AI chat"><i class="bx bx-x"></i></button>
+    </div>
+    <div class="ai-messages" id="ai-messages">
+      <div class="ai-msg ai-msg--bot">
+        <p>👋 Hi! I'm Francis's AI assistant. Ask me anything about his skills, projects, experience, or how to work with him!</p>
+      </div>
+      <div class="ai-suggestions">
+        <button class="ai-suggest" data-q="What are Francis's main skills?">Main skills?</button>
+        <button class="ai-suggest" data-q="Tell me about the Career AI project">Career AI?</button>
+        <button class="ai-suggest" data-q="How can I hire Francis?">Hire him?</button>
+      </div>
+    </div>
+    <div class="ai-input-area">
+      <input type="text" id="ai-input" placeholder="Ask me anything about Francis…" autocomplete="off" />
+      <button id="ai-send" aria-label="Send"><i class="bx bx-send"></i></button>
+    </div>
+    <p class="ai-powered">Powered by Claude AI</p>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
