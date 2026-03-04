@@ -128,8 +128,9 @@ if (contactForm) {
 }
 
 /* ════════════════════════════════════════════
-   AI CHAT WIDGET — Powered by Claude via
-   Anthropic API (calls go through artifact proxy)
+   AI CHAT WIDGET
+   Primary:  Pollinations AI GET endpoint (no key, no CORS)
+   Fallback: Local keyword-based answers
    ════════════════════════════════════════════ */
 
 const aiToggle   = document.getElementById('ai-toggle');
@@ -139,62 +140,61 @@ const aiMessages = document.getElementById('ai-messages');
 const aiInput    = document.getElementById('ai-input');
 const aiSend     = document.getElementById('ai-send');
 
-// System prompt — all facts about Francis
-const SYSTEM_PROMPT = `You are a friendly, concise AI assistant embedded on Francis Mujakachi's personal portfolio website.
-Your ONLY job is to answer questions about Francis Mujakachi based on the following facts:
+/* ── Francis knowledge base (used by local fallback) ── */
+const FRANCIS = {
+  name:    'Francis Mujakachi',
+  email:   'fmujakachi@gmail.com',
+  phone:   '+27 64 858 4297',
+  github:  'https://github.com/FraMukachi/',
+  fb:      'https://facebook.com/fmujakachi/',
+  li:      'https://linkedin.com/',
+  skills:  'UI/UX Design, Frontend Development (HTML, CSS, JS, React), Backend Development (Node.js, Python, REST APIs, AWS, Azure, Google Cloud), and Software Testing (Jest, Cypress).',
+  edu: [
+    '2008 — High School at Mid-Manhattan Education Center',
+    '2015 — University at Katolicki Uniwersytet Lubelski',
+    '2025 — FullStack Software Development at Power Learn Project',
+    '2025 — Cybersecurity Certificate via Coursera & Nemisa'
+  ],
+  projects: [
+    'E-Commerce Store — urban wear shop built with HTML/CSS/JS (PLP final project)',
+    'Portfolio V1 — his first personal portfolio site',
+    'Career AI — AI-powered career guidance platform for job matching and resume building'
+  ]
+};
 
-NAME: Francis Mujakachi
-EMAIL: fmujakachi@gmail.com
-PHONE: +27 64 858 4297
-SOCIAL:
-  - GitHub: https://github.com/FraMukachi/
-  - Facebook: https://facebook.com/fmujakachi/
-  - LinkedIn: https://linkedin.com/
+/* ── System context string sent to AI ── */
+const CONTEXT = `You are a helpful assistant on Francis Mujakachi's portfolio website. Answer ONLY questions about Francis using these facts:
+Name: ${FRANCIS.name} | Email: ${FRANCIS.email} | Phone: ${FRANCIS.phone}
+GitHub: ${FRANCIS.github} | LinkedIn: ${FRANCIS.li}
+Skills: ${FRANCIS.skills}
+Education: ${FRANCIS.edu.join('; ')}
+Projects: ${FRANCIS.projects.join('; ')}
+Hire/contact: use the contact form, email ${FRANCIS.email}, or call ${FRANCIS.phone}.
+Rules: Be concise (2-4 sentences), friendly, professional. Never invent facts. For unrelated questions say you can only discuss Francis.`;
 
-EDUCATION:
-  - 2008: High School — Mid-Manhattan Education Center
-  - 2015: University — Katolicki Uniwersytet Lubelski
-  - 2025: FullStack Software Development — Power Learn Project
-  - 2025: Cybersecurity Certificate — Coursera & Nemisa
+/* ── Local keyword fallback ── */
+function localAnswer(q) {
+  const t = q.toLowerCase();
+  if (/email|mail|gmail/.test(t))           return `Francis's email is **${FRANCIS.email}** — feel free to reach out directly!`;
+  if (/phone|call|whatsapp|number/.test(t)) return `You can call or WhatsApp Francis at **${FRANCIS.phone}**.`;
+  if (/hire|work|freelance|available/.test(t)) return `Yes! Francis is available for freelance, collaboration, and full-time roles. Fill in the contact form above, email ${FRANCIS.email}, or call ${FRANCIS.phone}.`;
+  if (/skill|know|tech|stack|language/.test(t)) return `Francis's skills include: ${FRANCIS.skills}`;
+  if (/project|portfolio|built|made/.test(t))   return `Francis has built: ${FRANCIS.projects.join(' | ')}`;
+  if (/career.?ai|carerai/.test(t))             return `Career AI is Francis's AI-powered career guidance platform that helps users with job matching, resume building, and career decisions.`;
+  if (/educat|school|study|degree|univer/.test(t)) return `Francis's education: ${FRANCIS.edu.join(' · ')}`;
+  if (/github|code|repo/.test(t))               return `Francis's GitHub is ${FRANCIS.github}`;
+  if (/name|who/.test(t))                       return `His name is Francis Mujakachi — a Web Developer & Software Engineer based in South Africa.`;
+  if (/contact|reach|find/.test(t))             return `You can contact Francis via the form on this page, by email at ${FRANCIS.email}, or by phone at ${FRANCIS.phone}.`;
+  return null; // No local match — try AI
+}
 
-SKILLS & SERVICES:
-  - UI/UX Design (Figma, prototyping, user-centered design)
-  - Frontend Development (HTML, CSS, JavaScript, React, SPAs, responsive design)
-  - Backend Development (Node.js, Python, REST APIs, AWS, Azure, Google Cloud)
-  - Software Testing (unit, integration, end-to-end, Jest, Cypress, automated pipelines)
-
-PROJECTS:
-  1. E-Commerce Store — Urban wear single-vendor shop using HTML/CSS/JavaScript. Final project for Web Development class at PLP.
-     URL: https://plp-webtechnologies.github.io/feb-2025-final-project-and-deployment-FraMukachi/index.html
-  2. Portfolio V1 — His first personal portfolio.
-     URL: https://francismujakachi.github.io/portfolio/
-  3. Career AI — An intelligent AI-powered career guidance platform helping users with career decisions, resume building, and job matching.
-
-HOW TO HIRE / WORK WITH FRANCIS:
-  - Fill in the contact form on the portfolio page
-  - Email him at fmujakachi@gmail.com
-  - Call/WhatsApp +27 64 858 4297
-
-PERSONALITY & APPROACH:
-  - Human-centered design philosophy
-  - Clean, maintainable, modular code
-  - Strong focus on performance and user experience
-  - Available for freelance projects, collaborations, and full-time opportunities
-
-RULES:
-  - Only answer questions about Francis. Politely decline anything unrelated.
-  - Keep answers concise (2–4 sentences max unless a list is needed).
-  - Be warm, professional, and conversational.
-  - Never invent facts not listed above.
-  - If unsure, say "I'm not sure about that — you can reach Francis directly at fmujakachi@gmail.com".`;
-
-let conversationHistory = [];
-
-function appendMessage(role, text) {
+/* ── DOM helpers ── */
+function appendMessage(role, html) {
   const wrapper = document.createElement('div');
   wrapper.className = `ai-msg ai-msg--${role === 'user' ? 'user' : 'bot'}`;
   const p = document.createElement('p');
-  p.textContent = text;
+  // Render basic **bold** markdown
+  p.innerHTML = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   wrapper.appendChild(p);
   aiMessages.appendChild(wrapper);
   aiMessages.scrollTop = aiMessages.scrollHeight;
@@ -210,75 +210,92 @@ function appendTyping() {
   return wrapper;
 }
 
-async function sendMessage(text) {
-  if (!text.trim()) return;
+/* ── AI fetch via Pollinations GET (no CORS, no key) ── */
+async function fetchAI(userQuestion) {
+  // Full prompt = context + question, URL-encoded
+  const prompt = encodeURIComponent(
+    CONTEXT + '\n\nUser question: ' + userQuestion + '\n\nAnswer concisely in 2-3 sentences:'
+  );
+  const url = `https://text.pollinations.ai/${prompt}`;
 
-  // Hide suggestions on first real message
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 12000); // 12s timeout
+
+  try {
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timer);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = await res.text();
+    return text.trim() || null;
+  } catch (e) {
+    clearTimeout(timer);
+    throw e;
+  }
+}
+
+/* ── Main send handler ── */
+async function sendMessage(text) {
+  text = text.trim();
+  if (!text) return;
+
+  // Remove suggestion buttons on first message
   const suggestions = aiMessages.querySelector('.ai-suggestions');
   if (suggestions) suggestions.remove();
 
   appendMessage('user', text);
   aiInput.value = '';
   aiInput.disabled = true;
-  aiSend.disabled = true;
+  aiSend.disabled  = true;
 
-  conversationHistory.push({ role: 'user', content: text });
-
-  const typingEl = appendTyping();
-
-  try {
-    // Build messages array with system prompt injected as first user/assistant exchange
-    const messages = [
-      { role: 'user', content: SYSTEM_PROMPT + '\n\nAcknowledge your role briefly.' },
-      { role: 'assistant', content: 'Understood! I\'m Francis\'s portfolio assistant, ready to answer questions about his skills, projects, and experience.' },
-      ...conversationHistory
-    ];
-
-    const response = await fetch('https://text.pollinations.ai/openai', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'openai',
-        messages,
-        max_tokens: 400,
-        temperature: 0.7
-      })
-    });
-
-    if (!response.ok) throw new Error(`API error ${response.status}`);
-
-    const data = await response.json();
-    const reply = data.choices?.[0]?.message?.content?.trim()
-      || 'Sorry, I couldn\'t get a response right now.';
-
+  // 1. Try local keyword match first (instant)
+  const local = localAnswer(text);
+  if (local) {
+    // Small delay to feel natural
+    const typingEl = appendTyping();
+    await new Promise(r => setTimeout(r, 600));
     typingEl.remove();
-    appendMessage('bot', reply);
-    conversationHistory.push({ role: 'assistant', content: reply });
+    appendMessage('bot', local);
+    aiInput.disabled = false;
+    aiSend.disabled  = false;
+    aiInput.focus();
+    return;
+  }
 
+  // 2. Try Pollinations AI
+  const typingEl = appendTyping();
+  try {
+    const reply = await fetchAI(text);
+    typingEl.remove();
+    if (reply) {
+      appendMessage('bot', reply);
+    } else {
+      throw new Error('Empty response');
+    }
   } catch (err) {
     typingEl.remove();
-    appendMessage('bot', 'Hmm, something went wrong. Please try again or contact Francis directly at fmujakachi@gmail.com.');
-    console.error('AI chat error:', err);
+    console.warn('AI fetch failed, using smart fallback:', err.message);
+    // 3. Generic smart fallback
+    appendMessage('bot',
+      `I couldn't reach the AI right now, but I can tell you: Francis is a Web Developer & Software Engineer. ` +
+      `You can contact him at **${FRANCIS.email}** or **${FRANCIS.phone}**. ` +
+      `Ask me about his skills, projects, or education and I'll answer instantly!`
+    );
   }
 
   aiInput.disabled = false;
-  aiSend.disabled = false;
+  aiSend.disabled  = false;
   aiInput.focus();
 }
 
-// Toggle chat open/close
+/* ── Widget toggle ── */
 aiToggle.addEventListener('click', () => {
-  aiChat.classList.toggle('open');
-  if (aiChat.classList.contains('open')) {
-    setTimeout(() => aiInput.focus(), 300);
-  }
+  const isOpen = aiChat.classList.toggle('open');
+  if (isOpen) setTimeout(() => aiInput.focus(), 300);
 });
 aiClose.addEventListener('click', () => aiChat.classList.remove('open'));
 
-// Send on button click
+/* ── Send triggers ── */
 aiSend.addEventListener('click', () => sendMessage(aiInput.value));
-
-// Send on Enter
 aiInput.addEventListener('keydown', e => {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault();
@@ -286,7 +303,7 @@ aiInput.addEventListener('keydown', e => {
   }
 });
 
-// Quick suggestion buttons
+/* ── Suggestion chips ── */
 document.addEventListener('click', e => {
   if (e.target.classList.contains('ai-suggest')) {
     sendMessage(e.target.dataset.q);
